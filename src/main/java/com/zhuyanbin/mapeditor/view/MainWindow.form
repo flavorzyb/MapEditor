@@ -171,6 +171,9 @@
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btOpenImage"/>
       </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOpenImageActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btLoadMap">
       <Properties>
@@ -327,6 +330,10 @@
     <Container class="javax.swing.JScrollPane" name="spMap">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lbLoadImage">
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

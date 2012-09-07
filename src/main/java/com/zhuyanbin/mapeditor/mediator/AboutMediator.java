@@ -61,7 +61,6 @@ public class AboutMediator extends Mediator
     @Override
     public void onRemove()
     {
-        getViewComponent().dispose();
         setViewComponent(null);
     }
 }

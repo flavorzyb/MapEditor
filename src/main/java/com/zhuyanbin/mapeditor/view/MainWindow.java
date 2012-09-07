@@ -5,6 +5,10 @@
 package com.zhuyanbin.mapeditor.view;
 
 import com.zhuyanbin.mapeditor.NotiConst;
+import com.zhuyanbin.mapeditor.utils.ImageFileFilter;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import org.puremvc.java.patterns.facade.Facade;
 import org.puremvc.java.patterns.observer.Notification;
 
@@ -58,6 +62,7 @@ public class MainWindow extends javax.swing.JFrame {
         rbPen = new javax.swing.JRadioButton();
         rbEarse = new javax.swing.JRadioButton();
         spMap = new javax.swing.JScrollPane();
+        lbLoadImage = new javax.swing.JLabel();
 
         bgPenGroup.add(rbPen);
         bgPenGroup.add(rbEarse);
@@ -65,6 +70,11 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btOpenImage.setText("打开图片");
+        btOpenImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOpenImageActionPerformed(evt);
+            }
+        });
 
         btLoadMap.setText("载入地图");
 
@@ -130,6 +140,8 @@ public class MainWindow extends javax.swing.JFrame {
         rbPen.setText("画笔");
 
         rbEarse.setText("橡皮");
+
+        spMap.setViewportView(lbLoadImage);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,6 +274,18 @@ public class MainWindow extends javax.swing.JFrame {
     private void btAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAboutActionPerformed
         Facade.getInstance().notifyObservers(new Notification(NotiConst.S_COMMAND_ABOUTME_OPEN, this));
     }//GEN-LAST:event_btAboutActionPerformed
+
+    private void btOpenImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOpenImageActionPerformed
+        JFileChooser fcOpenImage = new JFileChooser();
+        fcOpenImage.setFileFilter(new ImageFileFilter());
+        fcOpenImage.setDialogTitle("选择要打开的图片");
+        int result = fcOpenImage.showDialog(this, "打开图片");
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            File imgFile = fcOpenImage.getSelectedFile();
+            lbLoadImage.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
+        }
+    }//GEN-LAST:event_btOpenImageActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPenGroup;
@@ -281,6 +305,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbShowGrid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbLayer;
+    private javax.swing.JLabel lbLoadImage;
     private javax.swing.JLabel lbPX;
     private javax.swing.JLabel lbPY;
     private javax.swing.JLabel lbPenSize;
