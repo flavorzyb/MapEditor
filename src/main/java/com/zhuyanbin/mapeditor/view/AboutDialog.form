@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="&#x5173;&#x4e8e;MapEditor"/>
-    <Property name="alwaysOnTop" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -25,11 +25,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lbTitle" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbTitle" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbTime" min="-2" max="-2" attributes="0"/>
@@ -43,13 +43,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                       <Component id="btClose" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="91" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="lbInfo" min="-2" pref="162" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,16 +59,16 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="lbTitle" min="-2" max="-2" attributes="0"/>
+              <Component id="lbTitle" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="lbVersion" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lbAuthor" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lbTime" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="btClose" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -80,12 +82,16 @@
           <Font name="Lucida Grande" size="24" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="MapEditor"/>
+        <Property name="alignmentX" type="float" value="0.5"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btClose">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x5173;&#x95ed;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCloseActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbVersion">
       <Properties>
@@ -108,6 +114,8 @@
           <Font name="Lucida Grande" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x7248;&#x6743;&#x6240;&#x6709; &#x4fb5;&#x6743;&#x5fc5;&#x7a76;"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="alignmentX" type="float" value="0.5"/>
       </Properties>
     </Component>
   </SubComponents>

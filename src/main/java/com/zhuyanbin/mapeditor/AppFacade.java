@@ -4,6 +4,7 @@
  */
 package com.zhuyanbin.mapeditor;
 
+import com.zhuyanbin.mapeditor.command.AboutMeCommand;
 import com.zhuyanbin.mapeditor.command.MainCommand;
 import org.puremvc.java.patterns.facade.Facade;
 
@@ -41,7 +42,13 @@ final public class AppFacade extends Facade
     protected void initializeController()
     {
         super.initializeController();
-        //注册主程序处理事件
+        
+        // 注册启动主程序事件
         registerCommand(NotiConst.STARTUP, new MainCommand());
+        
+        // 注册启动AboutMe事件
+        registerCommand(NotiConst.S_COMMAND_ABOUTME_OPEN, new AboutMeCommand());
+        // 注册关闭AboutMe事件
+        registerCommand(NotiConst.S_COMMAND_ABOUTME_CLOSE, new AboutMeCommand());
     }
 }

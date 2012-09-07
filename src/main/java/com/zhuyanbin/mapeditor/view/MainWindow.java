@@ -4,6 +4,10 @@
  */
 package com.zhuyanbin.mapeditor.view;
 
+import com.zhuyanbin.mapeditor.NotiConst;
+import org.puremvc.java.patterns.facade.Facade;
+import org.puremvc.java.patterns.observer.Notification;
+
 /**
  *
  * @author flavor
@@ -256,8 +260,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_cbShowGridActionPerformed
 
     private void btAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAboutActionPerformed
+        Facade.getInstance().notifyObservers(new Notification(NotiConst.S_COMMAND_ABOUTME_OPEN, this));
     }//GEN-LAST:event_btAboutActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPenGroup;
     private javax.swing.JButton btAbout;

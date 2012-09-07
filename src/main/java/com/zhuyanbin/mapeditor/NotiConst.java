@@ -18,4 +18,24 @@ public class NotiConst
      * 启动主界面
      */
     final public static String S_MEDIATOR_MAIN_SHOW = "sMediatorMainShow";
+    
+    /**
+     * 启动AboutMe界面
+     */
+    final public static String S_COMMAND_ABOUTME_OPEN = "sCommandAboutMeOpen";
+    
+    /**
+     * 关闭AboutMe界面
+     */
+    final public static String S_COMMAND_ABOUTME_CLOSE = "sCommandAboutMeClose";
+    
+    /**
+     * 启动AboutMe界面
+     */
+    final public static String S_MEDIATOR_ABOUTME_OPEN = "sMediatorAboutMeOpen";
+    
+    /**
+     * 关闭AboutMe界面
+     */
+    final public static String S_MEDIATOR_ABOUTME_CLOSE = "sMediatorAboutMeClose";
 }
