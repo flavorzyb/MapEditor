@@ -57,7 +57,7 @@ public class MainWindow extends javax.swing.JFrame {
         sPenSize = new javax.swing.JSlider();
         rbPen = new javax.swing.JRadioButton();
         rbEarse = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        spMap = new javax.swing.JScrollPane();
 
         bgPenGroup.add(rbPen);
         bgPenGroup.add(rbEarse);
@@ -162,39 +162,37 @@ public class MainWindow extends javax.swing.JFrame {
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(lbRealLocation)
+                            .add(sPenSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(sPenSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(layout.createSequentialGroup()
-                                        .add(rbPen)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(rbEarse))
-                                    .add(btLockLocation)
-                                    .add(lbLayer)
-                                    .add(cbBaseLayer)
-                                    .add(cbMonsterLayer)
-                                    .add(lbPenSize)
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbX)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(tfX, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(lbY)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(tfY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(jLabel1)
-                                    .add(layout.createSequentialGroup()
-                                        .add(lbPX)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(tfPX, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(lbPY)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(tfPY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(rbPen)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jScrollPane1)))))
-                .add(52, 52, 52))
+                                .add(rbEarse))
+                            .add(lbPenSize)
+                            .add(lbRealLocation)
+                            .add(btLockLocation)
+                            .add(lbLayer)
+                            .add(cbBaseLayer)
+                            .add(cbMonsterLayer)
+                            .add(layout.createSequentialGroup()
+                                .add(lbX)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(tfX, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lbY)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(tfY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jLabel1)
+                            .add(layout.createSequentialGroup()
+                                .add(lbPX)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(tfPX, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lbPY)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(tfPY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(spMap, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1115, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -212,11 +210,11 @@ public class MainWindow extends javax.swing.JFrame {
                     .add(btExportServerMapData)
                     .add(btSystemSetting)
                     .add(btAbout))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(lbRealLocation)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lbRealLocation)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(lbX)
                             .add(tfX, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -246,9 +244,11 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(rbPen)
                             .add(rbEarse))
-                        .add(0, 296, Short.MAX_VALUE))
-                    .add(jScrollPane1))
-                .addContainerGap())
+                        .addContainerGap(302, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(6, 6, 6)
+                        .add(spMap)
+                        .addContainerGap())))
         );
 
         btOpenImage.getAccessibleContext().setAccessibleName("btOpenImage");
@@ -280,7 +280,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbMonsterLayer;
     private javax.swing.JCheckBox cbShowGrid;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbLayer;
     private javax.swing.JLabel lbPX;
     private javax.swing.JLabel lbPY;
@@ -291,6 +290,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbEarse;
     private javax.swing.JRadioButton rbPen;
     private javax.swing.JSlider sPenSize;
+    private javax.swing.JScrollPane spMap;
     private javax.swing.JTextField tfPX;
     private javax.swing.JTextField tfPY;
     private javax.swing.JTextField tfX;

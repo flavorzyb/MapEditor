@@ -44,6 +44,11 @@ public class AboutDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("关于MapEditor");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lbTitle.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         lbTitle.setText("MapEditor");
@@ -117,6 +122,10 @@ public class AboutDialog extends javax.swing.JDialog {
     private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
         Facade.getInstance().notifyObservers(new Notification(NotiConst.S_COMMAND_ABOUTME_CLOSE));
     }//GEN-LAST:event_btCloseActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Facade.getInstance().notifyObservers(new Notification(NotiConst.S_COMMAND_ABOUTME_CLOSE));
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btClose;
