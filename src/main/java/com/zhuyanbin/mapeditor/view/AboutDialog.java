@@ -4,10 +4,11 @@
  */
 package com.zhuyanbin.mapeditor.view;
 
-import com.zhuyanbin.mapeditor.NotiConst;
-import com.zhuyanbin.mapeditor.Version;
 import org.puremvc.java.patterns.facade.Facade;
 import org.puremvc.java.patterns.observer.Notification;
+
+import com.zhuyanbin.mapeditor.NotiConst;
+import com.zhuyanbin.mapeditor.Version;
 
 /**
  *
@@ -45,6 +46,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setTitle("关于MapEditor");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
