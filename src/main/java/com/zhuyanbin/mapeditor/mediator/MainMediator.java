@@ -6,6 +6,8 @@ package com.zhuyanbin.mapeditor.mediator;
 
 import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.view.MainWindow;
+
+import org.eclipse.swt.widgets.Display;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.mediator.Mediator;
 
@@ -43,10 +45,34 @@ public class MainMediator extends Mediator
         
         if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_SHOW))
         {
-            if (!getViewComponent().isActive())
+            if (!getViewComponent().isVisible())
             {
                 getViewComponent().setVisible(true);
             }
+            
+            openWindow();
+        }
+    }
+    
+    public void openWindow()
+    {
+        try 
+        {
+            Display display = getViewComponent().getDisplay();
+            MainWindow shell = getViewComponent();
+            shell.open();
+            shell.layout();
+            while (!shell.isDisposed()) 
+            {
+                if (!display.readAndDispatch()) 
+                {
+                    display.sleep();
+                }
+            }
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
         }
     }
 }

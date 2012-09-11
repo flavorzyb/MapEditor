@@ -6,7 +6,6 @@ package com.zhuyanbin.mapeditor.command;
 
 import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.mediator.AboutMediator;
-import com.zhuyanbin.mapeditor.view.AboutDialog;
 import com.zhuyanbin.mapeditor.view.MainWindow;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
@@ -44,7 +43,7 @@ public class AboutMeCommand extends SimpleCommand
     {
         if(!facade.hasMediator(AboutMediator.NAME))
         {
-            facade.registerMediator(new AboutMediator(AboutMediator.NAME, new AboutDialog(mw)));
+            //facade.registerMediator(new AboutMediator(AboutMediator.NAME, new AboutDialog(mw)));
         }
     }
     
