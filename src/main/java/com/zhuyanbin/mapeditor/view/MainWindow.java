@@ -10,6 +10,7 @@ import org.eclipse.swt.custom.CCombo;
 import com.zhuyanbin.mapeditor.view.mainwindow.BtnAboutMeMouseListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.custom.ScrolledComposite;
 
 public class MainWindow extends Shell 
 {
@@ -86,17 +87,17 @@ public class MainWindow extends Shell
         lbRealLocation.setBounds(10, 34, 59, 14);
         lbRealLocation.setText("真实坐标");
         
-        Label lblX = new Label(this, SWT.NONE);
-        lblX.setBounds(10, 54, 59, 14);
-        lblX.setText("x:");
+        Label lbRealX = new Label(this, SWT.NONE);
+        lbRealX.setBounds(10, 54, 59, 14);
+        lbRealX.setText("x:");
         
         Label lbPathLocation = new Label(this, SWT.NONE);
         lbPathLocation.setBounds(10, 79, 59, 14);
         lbPathLocation.setText("路径坐标");
         
-        Label lblX_1 = new Label(this, SWT.NONE);
-        lblX_1.setBounds(10, 99, 59, 14);
-        lblX_1.setText("x:");
+        Label lbPathX = new Label(this, SWT.NONE);
+        lbPathX.setBounds(10, 99, 59, 14);
+        lbPathX.setText("x:");
         
         Button btnLockLocation = new Button(this, SWT.NONE);
         btnLockLocation.setBounds(0, 119, 80, 28);
@@ -132,6 +133,11 @@ public class MainWindow extends Shell
         Button btnEraser = new Button(btnGroup, SWT.RADIO);
         btnEraser.setText("橡皮");
         btnEraser.setBounds(5, 37, 91, 18);
+        
+        ScrolledComposite scrollPanel = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+        scrollPanel.setBounds(111, 37, 879, 531);
+        scrollPanel.setExpandHorizontal(true);
+        scrollPanel.setExpandVertical(true);
 	}
 	
 	@Override
