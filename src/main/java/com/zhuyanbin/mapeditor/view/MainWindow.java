@@ -2,6 +2,7 @@ package com.zhuyanbin.mapeditor.view;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CCombo;
@@ -81,24 +82,24 @@ public class MainWindow extends Shell
         btnAboutMe.setText("关于");
         btnAboutMe.addMouseListener(new BtnAboutMeMouseListener(this));
         
-        Label label = new Label(this, SWT.NONE);
-        label.setBounds(10, 34, 59, 14);
-        label.setText("真实坐标");
+        Label lbRealLocation = new Label(this, SWT.NONE);
+        lbRealLocation.setBounds(10, 34, 59, 14);
+        lbRealLocation.setText("真实坐标");
         
         Label lblX = new Label(this, SWT.NONE);
         lblX.setBounds(10, 54, 59, 14);
         lblX.setText("x:");
         
-        Label label_1 = new Label(this, SWT.NONE);
-        label_1.setBounds(10, 79, 59, 14);
-        label_1.setText("路径坐标");
+        Label lbPathLocation = new Label(this, SWT.NONE);
+        lbPathLocation.setBounds(10, 79, 59, 14);
+        lbPathLocation.setText("路径坐标");
         
         Label lblX_1 = new Label(this, SWT.NONE);
         lblX_1.setBounds(10, 99, 59, 14);
         lblX_1.setText("x:");
         
         Button btnLockLocation = new Button(this, SWT.NONE);
-        btnLockLocation.setBounds(10, 122, 80, 28);
+        btnLockLocation.setBounds(0, 119, 80, 28);
         btnLockLocation.setText("锁定坐标");
         
         Label lbLayer = new Label(this, SWT.NONE);
@@ -118,15 +119,19 @@ public class MainWindow extends Shell
         lbPenSize.setText("画笔大小");
         
         Slider slider = new Slider(this, SWT.NONE);
-        slider.setBounds(10, 267, 150, 15);
+        slider.setBounds(5, 267, 80, 15);
         
-        Button btnPen = new Button(this, SWT.RADIO);
-        btnPen.setBounds(10, 288, 91, 18);
+        Group btnGroup = new Group(this, SWT.NONE);
+        btnGroup.setBounds(0, 295, 100, 82);
+
+        Button btnPen = new Button(btnGroup, SWT.RADIO);
         btnPen.setText("画笔");
+        btnPen.setSelection(true);
+        btnPen.setBounds(5, 10, 91, 18);
         
-        Button btnEraser = new Button(this, SWT.RADIO);
-        btnEraser.setBounds(10, 315, 91, 18);
+        Button btnEraser = new Button(btnGroup, SWT.RADIO);
         btnEraser.setText("橡皮");
+        btnEraser.setBounds(5, 37, 91, 18);
 	}
 	
 	@Override
