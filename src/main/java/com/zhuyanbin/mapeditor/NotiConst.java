@@ -20,6 +20,11 @@ public class NotiConst
     final public static String S_MEDIATOR_MAIN_SHOW = "sMediatorMainShow";
     
     /**
+     * 打开图片
+     */
+    final public static String S_MEDIATOR_MAIN_OPEN_IMAGE = "sMediatorMainOpenImage";
+    
+    /**
      * 启动AboutMe界面
      */
     final public static String S_COMMAND_ABOUTME_OPEN = "sCommandAboutMeOpen";

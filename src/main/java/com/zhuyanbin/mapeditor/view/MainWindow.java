@@ -8,12 +8,17 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CCombo;
 
 import com.zhuyanbin.mapeditor.view.mainwindow.BtnAboutMeMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.BtnOpenImageMouseListener;
+
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class MainWindow extends Shell 
 {
+    private Label lbImage = null;
+    
 	public MainWindow()
 	{
 		this(Display.getDefault());
@@ -40,6 +45,7 @@ public class MainWindow extends Shell
 		Button btnOpenImage = new Button(this, SWT.NONE);
 		btnOpenImage.setBounds(0, 0, 80, 28);
 		btnOpenImage.setText("打开图片");
+		btnOpenImage.addMouseListener(new BtnOpenImageMouseListener(this));
 		
 		Button btnLoadMapData = new Button(this, SWT.NONE);
 		btnLoadMapData.setBounds(85, 0, 94, 28);
@@ -138,6 +144,18 @@ public class MainWindow extends Shell
         scrollPanel.setBounds(111, 37, 879, 531);
         scrollPanel.setExpandHorizontal(true);
         scrollPanel.setExpandVertical(true);
+        
+        lbImage = new Label(scrollPanel, SWT.NONE);
+        scrollPanel.setContent(lbImage);
+        scrollPanel.setMinSize(lbImage.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+	}
+	
+	public void showImage(String fileName)
+	{
+	    if ((null != fileName) && (null != lbImage))
+	    {
+	        lbImage.setImage(SWTResourceManager.getImage(fileName));
+	    }
 	}
 	
 	@Override

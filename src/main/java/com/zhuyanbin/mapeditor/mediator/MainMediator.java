@@ -35,7 +35,7 @@ public class MainMediator extends Mediator
     @Override
     public String[] listNotificationInterests( )
     {
-        return new String[] {NotiConst.S_MEDIATOR_MAIN_SHOW};
+        return new String[] {NotiConst.S_MEDIATOR_MAIN_SHOW, NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE};
     }
     
     @Override
@@ -45,12 +45,12 @@ public class MainMediator extends Mediator
         
         if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_SHOW))
         {
-            if (!getViewComponent().isVisible())
-            {
-                getViewComponent().setVisible(true);
-            }
-            
             openWindow();
+        }
+        else if(notiName.equals(NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE))
+        {
+            String fileName = (String) notification.getBody();
+            getViewComponent().showImage(fileName);
         }
     }
     
