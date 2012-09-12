@@ -6,6 +6,7 @@ package com.zhuyanbin.mapeditor.mediator;
 
 import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.view.AboutDialog;
+
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.mediator.Mediator;
 
@@ -47,14 +48,15 @@ public class AboutMediator extends Mediator
         
         if (notiName.equals(NotiConst.S_MEDIATOR_ABOUTME_OPEN))
         {
-            if (!getViewComponent().isActive())
-            {
-                getViewComponent().setVisible(true);
-            }
+            getViewComponent().setActive();
+            openWindow();
         }
         else if (notiName.equals(NotiConst.S_MEDIATOR_ABOUTME_CLOSE))
         {
-            getViewComponent().setVisible(false);
+            if (!getViewComponent().isDisposed())
+            {
+                getViewComponent().dispose();  
+            }
         }
     }
     
@@ -62,5 +64,19 @@ public class AboutMediator extends Mediator
     public void onRemove()
     {
         setViewComponent(null);
+    }
+    
+    protected void openWindow()
+    {
+        try
+        {
+            AboutDialog shell = getViewComponent();
+            shell.open();
+            shell.layout();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

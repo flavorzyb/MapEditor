@@ -69,6 +69,8 @@ public class MainMediator extends Mediator
                     display.sleep();
                 }
             }
+            
+            display.dispose();
         }
         catch (Exception e) 
         {

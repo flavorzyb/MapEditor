@@ -6,6 +6,7 @@ package com.zhuyanbin.mapeditor.command;
 
 import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.mediator.AboutMediator;
+import com.zhuyanbin.mapeditor.view.AboutDialog;
 import com.zhuyanbin.mapeditor.view.MainWindow;
 import org.puremvc.java.interfaces.INotification;
 import org.puremvc.java.patterns.command.SimpleCommand;
@@ -27,9 +28,9 @@ public class AboutMeCommand extends SimpleCommand
         MainWindow mw = (MainWindow) notification.getBody();
         String notiName = notification.getName();
         
-        initMeditor(mw);
         if (notiName.equals(NotiConst.S_COMMAND_ABOUTME_OPEN))
         {
+            initMeditor(mw);
             sendNotification(NotiConst.S_MEDIATOR_ABOUTME_OPEN);
         }
         else if(notiName.equals(NotiConst.S_COMMAND_ABOUTME_CLOSE))
@@ -43,7 +44,7 @@ public class AboutMeCommand extends SimpleCommand
     {
         if(!facade.hasMediator(AboutMediator.NAME))
         {
-            //facade.registerMediator(new AboutMediator(AboutMediator.NAME, new AboutDialog(mw)));
+            facade.registerMediator(new AboutMediator(AboutMediator.NAME, AboutDialog.factory(mw)));
         }
     }
     
