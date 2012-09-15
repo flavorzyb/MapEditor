@@ -1,6 +1,7 @@
 package com.zhuyanbin.mapeditor.view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
@@ -13,11 +14,14 @@ import com.zhuyanbin.mapeditor.view.mainwindow.BtnOpenImageMouseListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class MainWindow extends Shell 
 {
-    private Label lbImage = null;
+    private Composite imageComposite = null;
     
 	public MainWindow()
 	{
@@ -141,20 +145,32 @@ public class MainWindow extends Shell
         btnEraser.setBounds(5, 37, 91, 18);
         
         ScrolledComposite scrollPanel = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-        scrollPanel.setBounds(111, 37, 879, 531);
-        scrollPanel.setExpandHorizontal(true);
         scrollPanel.setExpandVertical(true);
+        scrollPanel.setExpandHorizontal(true);
+        scrollPanel.setAlwaysShowScrollBars(true);
+        scrollPanel.setLayoutData(new GridData(GridData.FILL_BOTH));
+        scrollPanel.setLayout(new GridLayout(1, false));
+        scrollPanel.setBounds(111, 37, 870, 530);
         
-        lbImage = new Label(scrollPanel, SWT.NONE);
-        scrollPanel.setContent(lbImage);
-        scrollPanel.setMinSize(lbImage.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+        imageComposite = new Composite(scrollPanel, SWT.NONE);
+        scrollPanel.setContent(imageComposite);
+        GridLayout gl = new GridLayout(1, true);
+        imageComposite.setLayout(gl);
 	}
 	
 	public void showImage(String fileName)
 	{
-	    if ((null != fileName) && (null != lbImage))
+	    if ((null != fileName) && (null != imageComposite))
 	    {
-	        lbImage.setImage(SWTResourceManager.getImage(fileName));
+	        Image image = SWTResourceManager.getImage(fileName);
+	        imageComposite.setBackgroundImage(image);
+	        imageComposite.setSize(imageComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+	        ScrolledComposite scrollPanel = (ScrolledComposite) imageComposite.getParent();
+	        if (scrollPanel instanceof ScrolledComposite)
+	        {
+	            scrollPanel.setMinHeight(image.getBounds().height);
+	            scrollPanel.setMinWidth(image.getBounds().width);
+	        }
 	    }
 	}
 	
