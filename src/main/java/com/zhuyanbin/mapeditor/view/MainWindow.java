@@ -10,6 +10,7 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.zhuyanbin.mapeditor.view.mainwindow.BtnAboutMeMouseListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.BtnOpenImageMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.MWindowResizeListener;
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
@@ -22,6 +23,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class MainWindow extends Shell 
 {
     private Composite imageComposite = null;
+    
+    private ScrolledComposite scrollPanel = null;
     
 	public MainWindow()
 	{
@@ -36,6 +39,7 @@ public class MainWindow extends Shell
 	{
 		super(display, SWT.SHELL_TRIM);
 		createContents();
+		addListener(SWT.Resize, new MWindowResizeListener(this));
 	}
 
 	/**
@@ -52,44 +56,44 @@ public class MainWindow extends Shell
 		btnOpenImage.addMouseListener(new BtnOpenImageMouseListener(this));
 		
 		Button btnLoadMapData = new Button(this, SWT.NONE);
-		btnLoadMapData.setBounds(85, 0, 94, 28);
+		btnLoadMapData.setBounds(80, 0, 110, 28);
 		btnLoadMapData.setText("载入地图数据");
 		
 		Button btnLoadMonsterData = new Button(this, SWT.NONE);
-		btnLoadMonsterData.setBounds(180, 0, 94, 28);
+		btnLoadMonsterData.setBounds(190, 0, 110, 28);
 		btnLoadMonsterData.setText("载入怪物数据");
 		
 		CCombo combo = new CCombo(this, SWT.BORDER);
 		combo.setItems(new String[] {"不可走动-1", "透明区域-2", "怪物区域1-10", "怪物区域1-10", "怪物区域2-11", "怪物区域3-12", "怪物区域4-13"});
 		combo.select(0);
-		combo.setBounds(280, 4, 100, 18);
+		combo.setBounds(300, 4, 100, 18);
 		
 		Button btnShowGrid = new Button(this, SWT.CHECK);
-		btnShowGrid.setBounds(397, 0, 77, 24);
+		btnShowGrid.setBounds(417, 0, 77, 24);
 		btnShowGrid.setText("显示网格");
 		
 		Button btnMode = new Button(this, SWT.CHECK);
-        btnMode.setBounds(480, 1, 80, 24);
+        btnMode.setBounds(500, 1, 80, 24);
         btnMode.setText("1/2模式");
         
         Button btnClean = new Button(this, SWT.NONE);
-        btnClean.setBounds(546, 0, 60, 28);
+        btnClean.setBounds(576, 0, 60, 28);
         btnClean.setText("清除");
         
         Button btnSaveMap = new Button(this, SWT.NONE);
-        btnSaveMap.setBounds(609, 0, 80, 28);
+        btnSaveMap.setBounds(639, 0, 80, 28);
         btnSaveMap.setText("保存地图");
         
         Button btnSaveMonsterData = new Button(this, SWT.NONE);
-        btnSaveMonsterData.setBounds(695, 0, 94, 28);
+        btnSaveMonsterData.setBounds(725, 0, 94, 28);
         btnSaveMonsterData.setText("保存怪物数据");
         
         Button btnSystemConfig = new Button(this, SWT.NONE);
-        btnSystemConfig.setBounds(790, 0, 80, 28);
+        btnSystemConfig.setBounds(820, 0, 80, 28);
         btnSystemConfig.setText("系统配置");
         
         Button btnAboutMe = new Button(this, SWT.NONE);
-        btnAboutMe.setBounds(870, 0, 60, 28);
+        btnAboutMe.setBounds(900, 0, 60, 28);
         btnAboutMe.setText("关于");
         btnAboutMe.addMouseListener(new BtnAboutMeMouseListener(this));
         
@@ -144,18 +148,52 @@ public class MainWindow extends Shell
         btnEraser.setText("橡皮");
         btnEraser.setBounds(5, 37, 91, 18);
         
-        ScrolledComposite scrollPanel = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+        scrollPanel = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
         scrollPanel.setExpandVertical(true);
         scrollPanel.setExpandHorizontal(true);
         scrollPanel.setAlwaysShowScrollBars(true);
         scrollPanel.setLayoutData(new GridData(GridData.FILL_BOTH));
         scrollPanel.setLayout(new GridLayout(1, false));
-        scrollPanel.setBounds(111, 37, 870, 530);
+        scrollPanel.setBounds(111, 37, 868, 528);
         
         imageComposite = new Composite(scrollPanel, SWT.NONE);
         scrollPanel.setContent(imageComposite);
         GridLayout gl = new GridLayout(1, true);
         imageComposite.setLayout(gl);
+	}
+	
+	public void updateScrollPanelLocationXY(int width, int height)
+	{
+	    if (imageComposite instanceof Composite)
+	    {
+    	    Image image = imageComposite.getBackgroundImage();
+    	    
+    	    int spWidth = width - 132;
+    	    int spHeight = height - 72; 
+    	    
+    	    if (image instanceof Image)
+    	    {
+    	        if (image.getBounds().width < spWidth)
+    	        {
+    	            spWidth = image.getBounds().width;
+    	        }
+    	        
+    	        if (image.getBounds().height < spHeight)
+    	        {
+    	            spHeight = image.getBounds().height;
+    	        }
+    	    }
+            
+            if (scrollPanel instanceof ScrolledComposite)
+            {
+                if (image instanceof Image)
+                {
+                    scrollPanel.setMinHeight(image.getBounds().height);
+                    scrollPanel.setMinWidth(image.getBounds().width);
+                }
+                scrollPanel.setSize(spWidth, spHeight);
+            }
+	    }
 	}
 	
 	public void showImage(String fileName)
@@ -164,13 +202,20 @@ public class MainWindow extends Shell
 	    {
 	        Image image = SWTResourceManager.getImage(fileName);
 	        imageComposite.setBackgroundImage(image);
-	        imageComposite.setSize(imageComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-	        ScrolledComposite scrollPanel = (ScrolledComposite) imageComposite.getParent();
-	        if (scrollPanel instanceof ScrolledComposite)
-	        {
-	            scrollPanel.setMinHeight(image.getBounds().height);
-	            scrollPanel.setMinWidth(image.getBounds().width);
-	        }
+	        
+	        int width = getSize().x;
+	        int height = getSize().y;
+	        
+	        updateScrollPanelLocationXY(width, height);
+	        
+	        if ((image.getBounds().width > (width-132)) || (image.getBounds().height > (height-72)))
+            {
+                imageComposite.setSize(imageComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+            }
+            else
+            {
+                imageComposite.setSize(image.getBounds().width, image.getBounds().height);
+            }
 	    }
 	}
 	
