@@ -5,11 +5,11 @@ import org.eclipse.swt.widgets.Listener;
 
 import com.zhuyanbin.mapeditor.view.MainWindow;
 
-public class MWindowResizeListener implements Listener
+public class WindowResizeListener implements Listener
 {
     private MainWindow _mw = null;
     
-    public MWindowResizeListener(MainWindow mw)
+    public WindowResizeListener(MainWindow mw)
     {
         setWindow(mw);
     }
@@ -32,5 +32,10 @@ public class MWindowResizeListener implements Listener
         {
             mw.updateScrollPanelLocationXY(mw.getSize().x, mw.getSize().y);
         }
+    }
+    
+    public void free()
+    {
+        setWindow(null);
     }
 }

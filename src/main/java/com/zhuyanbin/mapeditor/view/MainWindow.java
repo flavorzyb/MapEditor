@@ -1,6 +1,7 @@
 package com.zhuyanbin.mapeditor.view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
@@ -8,9 +9,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CCombo;
 
-import com.zhuyanbin.mapeditor.view.mainwindow.BtnAboutMeMouseListener;
-import com.zhuyanbin.mapeditor.view.mainwindow.BtnOpenImageMouseListener;
-import com.zhuyanbin.mapeditor.view.mainwindow.MWindowResizeListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.AboutMeMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.OpenImageMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.BtnShowGridSelectListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.CanvasPaintListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.WindowResizeListener;
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
@@ -26,6 +29,17 @@ public class MainWindow extends Shell
     
     private ScrolledComposite scrollPanel = null;
     
+    private Canvas cv = null;
+    
+    private Button _btnOpenImage = null;
+    
+    private Button _btnAboutMe = null;
+    
+    private WindowResizeListener _winResizeListener = null;
+    
+    private OpenImageMouseListener _openImageListener = null;
+    
+    private AboutMeMouseListener _aboutMeMouseListener = null;
 	public MainWindow()
 	{
 		this(Display.getDefault());
@@ -39,7 +53,43 @@ public class MainWindow extends Shell
 	{
 		super(display, SWT.SHELL_TRIM);
 		createContents();
-		addListener(SWT.Resize, new MWindowResizeListener(this));
+		addEvents();
+	}
+	
+	private void addEvents()
+	{
+	    _winResizeListener = new WindowResizeListener(this);
+	    addListener(SWT.Resize, _winResizeListener);
+	    
+	    _openImageListener = new OpenImageMouseListener(this);
+	    _btnOpenImage.addMouseListener(_openImageListener);
+	    
+	    _aboutMeMouseListener = new AboutMeMouseListener(this);
+	    _btnAboutMe.addMouseListener(_aboutMeMouseListener);
+	}
+	
+	private void removeEvents()
+	{
+	    if (null != _winResizeListener)
+	    {
+	        removeListener(SWT.Resize, _winResizeListener);
+	        _winResizeListener.free();
+	        _winResizeListener = null;
+	    }
+	    
+	    if (null != _openImageListener)
+	    {
+	        _btnOpenImage.removeMouseListener(_openImageListener);
+	        _openImageListener.free();
+	        _openImageListener = null;
+	    }
+	    
+	    if (null != _aboutMeMouseListener)
+	    {
+	        _btnAboutMe.removeMouseListener(_aboutMeMouseListener);
+	        _aboutMeMouseListener.free();
+	        _aboutMeMouseListener = null;
+	    }
 	}
 
 	/**
@@ -50,10 +100,9 @@ public class MainWindow extends Shell
 		setText("地图编辑器");
 		setSize(1000, 600);
 		
-		Button btnOpenImage = new Button(this, SWT.NONE);
-		btnOpenImage.setBounds(0, 0, 80, 28);
-		btnOpenImage.setText("打开图片");
-		btnOpenImage.addMouseListener(new BtnOpenImageMouseListener(this));
+		_btnOpenImage = new Button(this, SWT.NONE);
+		_btnOpenImage.setBounds(0, 0, 80, 28);
+		_btnOpenImage.setText("打开图片");
 		
 		Button btnLoadMapData = new Button(this, SWT.NONE);
 		btnLoadMapData.setBounds(80, 0, 110, 28);
@@ -92,10 +141,9 @@ public class MainWindow extends Shell
         btnSystemConfig.setBounds(820, 0, 80, 28);
         btnSystemConfig.setText("系统配置");
         
-        Button btnAboutMe = new Button(this, SWT.NONE);
-        btnAboutMe.setBounds(900, 0, 60, 28);
-        btnAboutMe.setText("关于");
-        btnAboutMe.addMouseListener(new BtnAboutMeMouseListener(this));
+        _btnAboutMe = new Button(this, SWT.NONE);
+        _btnAboutMe.setBounds(900, 0, 60, 28);
+        _btnAboutMe.setText("关于");
         
         Label lbRealLocation = new Label(this, SWT.NONE);
         lbRealLocation.setBounds(10, 34, 59, 14);
@@ -158,8 +206,14 @@ public class MainWindow extends Shell
         
         imageComposite = new Composite(scrollPanel, SWT.NONE);
         scrollPanel.setContent(imageComposite);
-        GridLayout gl = new GridLayout(1, true);
-        imageComposite.setLayout(gl);
+        imageComposite.setLayout(new GridLayout(0, false));
+        
+        cv = new Canvas(imageComposite, SWT.NO_BACKGROUND);
+        cv.setLocation(0, 0);
+        cv.addPaintListener(new CanvasPaintListener(cv));
+        
+        // 绑定事件
+        btnShowGrid.addSelectionListener(new BtnShowGridSelectListener(cv));
 	}
 	
 	public void updateScrollPanelLocationXY(int width, int height)
@@ -206,8 +260,6 @@ public class MainWindow extends Shell
 	        int width = getSize().x;
 	        int height = getSize().y;
 	        
-	        updateScrollPanelLocationXY(width, height);
-	        
 	        if ((image.getBounds().width > (width-132)) || (image.getBounds().height > (height-72)))
             {
                 imageComposite.setSize(imageComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
@@ -216,6 +268,9 @@ public class MainWindow extends Shell
             {
                 imageComposite.setSize(image.getBounds().width, image.getBounds().height);
             }
+	        
+	        cv.setSize(imageComposite.getSize());
+	        updateScrollPanelLocationXY(width, height);
 	    }
 	}
 	
@@ -223,5 +278,12 @@ public class MainWindow extends Shell
 	protected void checkSubclass() 
 	{
 		// Disable the check that prevents subclassing of SWT components
+	}
+	
+	@Override
+	public void dispose()
+	{
+	    removeEvents();
+	    super.dispose();
 	}
 }
