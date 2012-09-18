@@ -8,11 +8,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class BtnShowGridSelectListener extends SelectionAdapter
+public class ShowGridSelectListener extends SelectionAdapter
 {
     private Canvas _cv = null;
     
-    public BtnShowGridSelectListener(Canvas cv)
+    public ShowGridSelectListener(Canvas cv)
     {
         setCanvas(cv);
     }
@@ -47,5 +47,10 @@ public class BtnShowGridSelectListener extends SelectionAdapter
                 getCanvas().setVisible(false);
             }
         }
+    }
+    
+    public void free()
+    {
+        setCanvas(null);
     }
 }

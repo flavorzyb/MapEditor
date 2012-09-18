@@ -68,4 +68,10 @@ public class LineGrid
             }
         }
     }
+    
+    public void free()
+    {
+        setGC(null);
+        setGridVO(null);
+    }
 }

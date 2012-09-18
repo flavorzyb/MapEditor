@@ -20,9 +20,24 @@ public class NotiConst
     final public static String S_MEDIATOR_MAIN_SHOW = "sMediatorMainShow";
     
     /**
+     * 打开文件选择框－打开图片事件
+     */
+    final public static String S_MEDIATOR_MAIN_OPEN_IMAGE_DIALOG = "sMediatorMainOpenImageDialog";
+    
+    /**
      * 打开图片
      */
     final public static String S_MEDIATOR_MAIN_OPEN_IMAGE = "sMediatorMainOpenImage";
+    
+    /**
+     * 响应AboutMe按钮事件
+     */
+    final public static String S_MEDIATOR_MAIN_OPEN_ABOUTME = "sMediatorMainOpenAboutMe";
+    
+    /**
+     * resize 主窗体
+     */
+    final public static String S_MEDIATOR_MAIN_RESIZE = "sMediatorMainResize";
     
     /**
      * 启动AboutMe界面
