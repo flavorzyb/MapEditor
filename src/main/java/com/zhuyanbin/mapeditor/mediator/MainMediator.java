@@ -6,7 +6,9 @@ package com.zhuyanbin.mapeditor.mediator;
 
 import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.view.MainWindow;
+import com.zhuyanbin.mapeditor.view.grid.LineGrid;
 
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.puremvc.java.interfaces.INotification;
@@ -42,7 +44,9 @@ public class MainMediator extends Mediator
                 NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE_DIALOG,
                 NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE,
                 NotiConst.S_MEDIATOR_MAIN_OPEN_ABOUTME,
-                NotiConst.S_MEDIATOR_MAIN_RESIZE};
+                NotiConst.S_MEDIATOR_MAIN_RESIZE,
+                NotiConst.S_MEDIATOR_MAIN_DRAW_LINE_GRID,
+                NotiConst.S_MEDIATOR_MAIN_SHOW_GRID};
     }
     
     @Override
@@ -66,10 +70,24 @@ public class MainMediator extends Mediator
         else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_RESIZE))
         {
             getViewComponent().updateScrollPanelLocationXY(getViewComponent().getSize().x, getViewComponent().getSize().y);
+            getViewComponent().updateGridSize();
         }
         else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE_DIALOG))
         {
             openImageDialog();
+        }
+        else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_DRAW_LINE_GRID))
+        {
+            GC gc = (GC) notification.getBody();
+            if (null != gc)
+            {
+                drawLineGrid(gc);
+            }
+        }
+        else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_SHOW_GRID))
+        {
+            boolean visible = (boolean) notification.getBody();
+            showGrid(visible);
         }
     }
     
@@ -105,5 +123,18 @@ public class MainMediator extends Mediator
         fd.setText("打开图片");
         fd.setFilterExtensions(filter);
         Facade.getInstance().sendNotification(NotiConst.S_MEDIATOR_MAIN_OPEN_IMAGE, fd.open());
+    }
+    
+    private void drawLineGrid(GC gc)
+    {
+        LineGrid lg = new LineGrid(gc, getViewComponent().getGridVO());
+        lg.drawGrid();
+        lg.free();
+        lg = null;
+    }
+    
+    private void showGrid(boolean visible)
+    {
+        getViewComponent().showGrid(visible);
     }
 }

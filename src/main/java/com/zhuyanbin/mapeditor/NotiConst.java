@@ -40,6 +40,16 @@ public class NotiConst
     final public static String S_MEDIATOR_MAIN_RESIZE = "sMediatorMainResize";
     
     /**
+     * 主窗体画格子
+     */
+    final public static String S_MEDIATOR_MAIN_DRAW_LINE_GRID = "sMediatorMainDrawLineGrid";
+    
+    /**
+     * 主窗体是否显示格子
+     */
+    final public static String S_MEDIATOR_MAIN_SHOW_GRID = "sMediatorMainShowGrid";
+    
+    /**
      * 启动AboutMe界面
      */
     final public static String S_COMMAND_ABOUTME_OPEN = "sCommandAboutMeOpen";

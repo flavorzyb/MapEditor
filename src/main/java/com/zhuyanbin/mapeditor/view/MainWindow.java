@@ -78,10 +78,10 @@ public class MainWindow extends Shell
 	    _aboutMeMouseListener = new AboutMeMouseListener();
 	    _btnAboutMe.addMouseListener(_aboutMeMouseListener);
 	    
-	    _showGridSelectListener = new ShowGridSelectListener(_cv);
+	    _showGridSelectListener = new ShowGridSelectListener();
 	    _btnShowGrid.addSelectionListener(_showGridSelectListener);
 	    
-	    _canvasPaintListener = new CanvasPaintListener(getGridVO());
+	    _canvasPaintListener = new CanvasPaintListener();
         _cv.addPaintListener(_canvasPaintListener);
 	}
 	
@@ -95,7 +95,7 @@ public class MainWindow extends Shell
 	    return (null != _cv ? _cv.getSize().y : getSize().y);
 	}
 	
-	private GridVO getGridVO()
+	public GridVO getGridVO()
 	{
 	    if (null == _gvo)
 	    {
@@ -139,14 +139,12 @@ public class MainWindow extends Shell
 	    if (null != _showGridSelectListener)
 	    {
 	        _btnShowGrid.removeSelectionListener(_showGridSelectListener);
-	        _showGridSelectListener.free();
 	        _showGridSelectListener = null;
 	    }
 	    
 	    if (null != _canvasPaintListener)
         {
             _cv.removePaintListener(_canvasPaintListener);
-            _canvasPaintListener.free();
             _canvasPaintListener = null;
         }
 	}
@@ -329,6 +327,14 @@ public class MainWindow extends Shell
 	        
 	        updateScrollPanelLocationXY(width, height);
 	        updateGridSize();
+	    }
+	}
+	
+	public void showGrid(boolean visible)
+	{
+	    if (null != _cv)
+	    {
+	        _cv.setVisible(visible);
 	    }
 	}
 	
