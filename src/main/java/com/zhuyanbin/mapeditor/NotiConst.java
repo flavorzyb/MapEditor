@@ -60,6 +60,11 @@ public class NotiConst
     final public static String S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE = "sMediatorMainFillCanvasMouseMove";
     
     /**
+     * 主窗体画笔大小变化
+     */
+    final public static String S_MEDIATOR_MAIN_PEN_SIZE_CHANGE = "sMediatorMainPenSizeChange";
+    
+    /**
      * 启动AboutMe界面
      */
     final public static String S_COMMAND_ABOUTME_OPEN = "sCommandAboutMeOpen";

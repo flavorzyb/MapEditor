@@ -14,6 +14,7 @@ import com.zhuyanbin.mapeditor.view.mainwindow.AboutMeMouseListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.FillCanvasMouseListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.FillCanvasMouseMoveListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.OpenImageMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.PenSizeSelectionListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.ShowGridSelectListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.CanvasPaintListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.WindowResizeListener;
@@ -42,6 +43,10 @@ public class MainWindow extends Shell
     
     private Button _btnShowGrid = null;
     
+    private Label _lbPenSize = null;
+    
+    private Slider _slPenSize = null;
+    
     private WindowResizeListener _winResizeListener = null;
     
     private OpenImageMouseListener _openImageListener = null;
@@ -55,6 +60,8 @@ public class MainWindow extends Shell
     private FillCanvasMouseListener _fillCanvasMouseListener = null;
     
     private FillCanvasMouseMoveListener _fillCanvasMouseMoveListener = null;
+    
+    private PenSizeSelectionListener _penSizeSelectionListener = null;
     
     private GridVO _gvo = null;
     
@@ -98,6 +105,9 @@ public class MainWindow extends Shell
         
         _fillCanvasMouseMoveListener = new FillCanvasMouseMoveListener();
         _fillCanvas.addMouseMoveListener(_fillCanvasMouseMoveListener);
+        
+        _penSizeSelectionListener = new PenSizeSelectionListener();
+        _slPenSize.addSelectionListener(_penSizeSelectionListener);
 	}
 	
 	public void updateFillMouseDown(boolean isDown)
@@ -184,6 +194,12 @@ public class MainWindow extends Shell
 	        _fillCanvas.removeMouseMoveListener(_fillCanvasMouseMoveListener);
 	        _fillCanvasMouseMoveListener = null;
 	    }
+	    
+	    if (null != _penSizeSelectionListener)
+	    {
+	        _slPenSize.removeSelectionListener(_penSizeSelectionListener);
+	        _penSizeSelectionListener = null;
+	    }
 	}
 
 	/**
@@ -228,7 +244,7 @@ public class MainWindow extends Shell
         btnSaveMap.setText("保存地图");
         
         Button btnSaveMonsterData = new Button(this, SWT.NONE);
-        btnSaveMonsterData.setBounds(725, 0, 94, 28);
+        btnSaveMonsterData.setBounds(715, 0, 110, 28);
         btnSaveMonsterData.setText("保存怪物数据");
         
         Button btnSystemConfig = new Button(this, SWT.NONE);
@@ -271,12 +287,18 @@ public class MainWindow extends Shell
         cbMonsterLayer.setBounds(10, 201, 93, 18);
         cbMonsterLayer.setText("怪物图层");
         
-        Label lbPenSize = new Label(this, SWT.NONE);
-        lbPenSize.setBounds(10, 249, 59, 14);
-        lbPenSize.setText("画笔大小");
+        _lbPenSize = new Label(this, SWT.NONE);
+        _lbPenSize.setBounds(10, 249, 80, 14);
+        _lbPenSize.setText("画笔大小"+":"+"1");
         
-        Slider slider = new Slider(this, SWT.NONE);
-        slider.setBounds(5, 267, 80, 15);
+        _slPenSize = new Slider(this, SWT.NONE);
+        _slPenSize.setBounds(5, 267, 80, 15);
+        _slPenSize.setMinimum(1);
+        _slPenSize.setMaximum(16);
+        _slPenSize.setIncrement(1);
+        _slPenSize.setPageIncrement(1);
+        _slPenSize.setThumb(1);
+        _slPenSize.setSelection(1);
         
         Group btnGroup = new Group(this, SWT.NONE);
         btnGroup.setBounds(0, 295, 100, 82);
@@ -308,6 +330,14 @@ public class MainWindow extends Shell
         
         _fillCanvas = new Canvas(_imageComposite, SWT.NO_BACKGROUND);
         _fillCanvas.setLocation(0, 0);
+	}
+	
+	public void updatePenSizeTips()
+	{
+	    if ((null != _lbPenSize) && (null != _slPenSize))
+	    {
+	        _lbPenSize.setText("画笔大小"+":"+String.valueOf(_slPenSize.getSelection()));
+	    }
 	}
 	
 	public void updateScrollPanelLocationXY(int width, int height)

@@ -49,7 +49,8 @@ public class MainMediator extends Mediator
                 NotiConst.S_MEDIATOR_MAIN_DRAW_LINE_GRID,
                 NotiConst.S_MEDIATOR_MAIN_SHOW_GRID,
                 NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_STATUS,
-                NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE
+                NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE,
+                NotiConst.S_MEDIATOR_MAIN_PEN_SIZE_CHANGE
                 };
     }
     
@@ -105,6 +106,10 @@ public class MainMediator extends Mediator
             {
                 System.out.println("x:"+e.x+",y:"+e.y);
             }
+        }
+        else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_PEN_SIZE_CHANGE))
+        {
+            getViewComponent().updatePenSizeTips();
         }
     }
     
