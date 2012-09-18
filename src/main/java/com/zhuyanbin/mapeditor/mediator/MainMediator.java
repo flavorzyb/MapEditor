@@ -8,6 +8,7 @@ import com.zhuyanbin.mapeditor.NotiConst;
 import com.zhuyanbin.mapeditor.view.MainWindow;
 import com.zhuyanbin.mapeditor.view.grid.LineGrid;
 
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -46,7 +47,10 @@ public class MainMediator extends Mediator
                 NotiConst.S_MEDIATOR_MAIN_OPEN_ABOUTME,
                 NotiConst.S_MEDIATOR_MAIN_RESIZE,
                 NotiConst.S_MEDIATOR_MAIN_DRAW_LINE_GRID,
-                NotiConst.S_MEDIATOR_MAIN_SHOW_GRID};
+                NotiConst.S_MEDIATOR_MAIN_SHOW_GRID,
+                NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_STATUS,
+                NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE
+                };
     }
     
     @Override
@@ -88,6 +92,19 @@ public class MainMediator extends Mediator
         {
             boolean visible = (boolean) notification.getBody();
             showGrid(visible);
+        }
+        else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_STATUS))
+        {
+            boolean isDown = (boolean) notification.getBody();
+            getViewComponent().updateFillMouseDown(isDown);
+        }
+        else if (notiName.equals(NotiConst.S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE))
+        {
+            MouseEvent e = (MouseEvent) notification.getBody();
+            if (getViewComponent().getFillMouseDown())
+            {
+                System.out.println("x:"+e.x+",y:"+e.y);
+            }
         }
     }
     

@@ -50,6 +50,16 @@ public class NotiConst
     final public static String S_MEDIATOR_MAIN_SHOW_GRID = "sMediatorMainShowGrid";
     
     /**
+     * 主窗体fillCanvas鼠标状态(down or up)
+     */
+    final public static String S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_STATUS = "sMediatorMainFillCanvasMouseStatus";
+    
+    /**
+     * 主窗体fillCanvas鼠标移动事件
+     */
+    final public static String S_MEDIATOR_MAIN_FILLCANVAS_MOUSE_MOVE = "sMediatorMainFillCanvasMouseMove";
+    
+    /**
      * 启动AboutMe界面
      */
     final public static String S_COMMAND_ABOUTME_OPEN = "sCommandAboutMeOpen";

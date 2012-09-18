@@ -11,6 +11,8 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.zhuyanbin.mapeditor.model.GridVO;
 import com.zhuyanbin.mapeditor.view.mainwindow.AboutMeMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.FillCanvasMouseListener;
+import com.zhuyanbin.mapeditor.view.mainwindow.FillCanvasMouseMoveListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.OpenImageMouseListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.ShowGridSelectListener;
 import com.zhuyanbin.mapeditor.view.mainwindow.CanvasPaintListener;
@@ -32,6 +34,8 @@ public class MainWindow extends Shell
     
     private Canvas _cv = null;
     
+    private Canvas _fillCanvas = null;
+    
     private Button _btnOpenImage = null;
     
     private Button _btnAboutMe = null;
@@ -48,8 +52,13 @@ public class MainWindow extends Shell
     
     private CanvasPaintListener _canvasPaintListener = null;
     
+    private FillCanvasMouseListener _fillCanvasMouseListener = null;
+    
+    private FillCanvasMouseMoveListener _fillCanvasMouseMoveListener = null;
     
     private GridVO _gvo = null;
+    
+    private boolean _fillMouseDown = false;
     
 	public MainWindow()
 	{
@@ -83,6 +92,22 @@ public class MainWindow extends Shell
 	    
 	    _canvasPaintListener = new CanvasPaintListener();
         _cv.addPaintListener(_canvasPaintListener);
+        
+        _fillCanvasMouseListener = new FillCanvasMouseListener();
+        _fillCanvas.addMouseListener(_fillCanvasMouseListener);
+        
+        _fillCanvasMouseMoveListener = new FillCanvasMouseMoveListener();
+        _fillCanvas.addMouseMoveListener(_fillCanvasMouseMoveListener);
+	}
+	
+	public void updateFillMouseDown(boolean isDown)
+	{
+	    _fillMouseDown = isDown;
+	}
+	
+	public boolean getFillMouseDown()
+	{
+	    return _fillMouseDown;
 	}
 	
 	private int getCanvasWidth()
@@ -147,6 +172,18 @@ public class MainWindow extends Shell
             _cv.removePaintListener(_canvasPaintListener);
             _canvasPaintListener = null;
         }
+	    
+	    if (null != _fillCanvasMouseListener)
+	    {
+	        _fillCanvas.removeMouseListener(_fillCanvasMouseListener);
+	        _fillCanvasMouseListener = null;
+	    }
+	    
+	    if (null != _fillCanvasMouseMoveListener)
+	    {
+	        _fillCanvas.removeMouseMoveListener(_fillCanvasMouseMoveListener);
+	        _fillCanvasMouseMoveListener = null;
+	    }
 	}
 
 	/**
@@ -268,6 +305,9 @@ public class MainWindow extends Shell
         _cv = new Canvas(_imageComposite, SWT.NO_BACKGROUND);
         _cv.setLocation(0, 0);
         _cv.setVisible(false);
+        
+        _fillCanvas = new Canvas(_imageComposite, SWT.NO_BACKGROUND);
+        _fillCanvas.setLocation(0, 0);
 	}
 	
 	public void updateScrollPanelLocationXY(int width, int height)
@@ -324,6 +364,7 @@ public class MainWindow extends Shell
             }
 	        
 	        _cv.setSize(image.getBounds().width, image.getBounds().height);
+	        _fillCanvas.setSize(_cv.getSize());
 	        
 	        updateScrollPanelLocationXY(width, height);
 	        updateGridSize();
